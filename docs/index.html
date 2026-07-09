@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CashGuard — Automatic Bank Alert Tracker for Sri Lanka</title>
+<meta name="description" content="CashGuard reads bank &amp; telco transaction alerts automatically across all Sri Lankan banks — no SMS permission, no internet, no ads. Free and open source." />
+<link rel="icon" href="icon.png" />
+<meta property="og:title" content="CashGuard — Automatic Bank Alert Tracker for Sri Lanka" />
+<meta property="og:description" content="Reads bank &amp; telco transaction alerts automatically across all Sri Lankan banks. 100% on-device, free and open source." />
+<meta property="og:image" content="icon.png" />
+<meta property="og:type" content="website" />
+<style>
+  :root {
+    --bg: #13131F;
+    --surface: #1E1E30;
+    --surface-light: #262638;
+    --purple: #6C5CE7;
+    --purple-light: #9C8CFF;
+    --blue: #5B7CFA;
+    --green: #00D9A3;
+    --red: #FF6B6B;
+    --text: #F2F2F7;
+    --text-secondary: #A0A0B8;
+    --divider: #33334A;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+  }
+  a { color: var(--purple-light); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  img { max-width: 100%; display: block; }
+
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+  header {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(19,19,31,0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--divider);
+  }
+  header .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 18px; color: var(--text); }
+  .brand img { width: 32px; height: 32px; border-radius: 8px; }
+  .nav-links { display: flex; align-items: center; gap: 20px; font-size: 14px; }
+  .nav-links a.button {
+    background: var(--purple); color: #fff; padding: 8px 16px; border-radius: 10px; font-weight: 600;
+  }
+  .nav-links a.button:hover { text-decoration: none; background: var(--purple-light); }
+  .nav-links a.ghost { color: var(--text-secondary); }
+
+  .hero {
+    text-align: center;
+    padding: 72px 0 56px;
+    background:
+      radial-gradient(ellipse 60% 50% at 50% -10%, rgba(108,92,231,0.35), transparent),
+      var(--bg);
+  }
+  .hero img.icon {
+    width: 108px; height: 108px; border-radius: 26px;
+    box-shadow: 0 12px 40px rgba(108,92,231,0.45);
+    margin-bottom: 24px;
+  }
+  .hero h1 { font-size: 40px; margin: 0 0 12px; letter-spacing: -0.02em; }
+  .hero p.tagline { font-size: 18px; color: var(--text-secondary); max-width: 560px; margin: 0 auto 32px; }
+
+  .cta-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 14px; }
+  .cta-primary, .cta-secondary {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 14px 26px; border-radius: 14px; font-weight: 600; font-size: 15px;
+  }
+  .cta-primary {
+    background: linear-gradient(135deg, var(--purple), var(--blue));
+    color: #fff;
+  }
+  .cta-primary:hover { text-decoration: none; filter: brightness(1.08); }
+  .cta-secondary {
+    background: var(--surface); color: var(--text); border: 1px solid var(--divider);
+  }
+  .cta-secondary:hover { text-decoration: none; background: var(--surface-light); }
+  .sideload-note { font-size: 12.5px; color: var(--text-secondary); margin-top: 4px; }
+
+  .badges {
+    display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+    margin: 32px 0 0;
+  }
+  .badge {
+    display: flex; align-items: center; gap: 6px;
+    background: var(--surface); border: 1px solid var(--divider);
+    padding: 8px 14px; border-radius: 20px; font-size: 12.5px; color: var(--text-secondary);
+  }
+  .badge .dot { color: var(--green); font-size: 14px; }
+
+  section { padding: 56px 0; }
+  section.alt { background: var(--surface); border-top: 1px solid var(--divider); border-bottom: 1px solid var(--divider); }
+  h2.section-title { font-size: 28px; text-align: center; margin: 0 0 8px; }
+  p.section-sub { text-align: center; color: var(--text-secondary); margin: 0 0 40px; font-size: 15px; }
+
+  .shots {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+  }
+  .shots img {
+    border-radius: 16px; border: 1px solid var(--divider);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.35);
+  }
+  .shots figcaption { text-align: center; font-size: 13px; color: var(--text-secondary); margin-top: 10px; }
+  .shots figure { margin: 0; }
+
+  .features {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+  }
+  .feature-card {
+    background: var(--bg); border: 1px solid var(--divider); border-radius: 18px; padding: 24px;
+  }
+  .feature-card .emoji { font-size: 28px; margin-bottom: 12px; }
+  .feature-card h3 { font-size: 16px; margin: 0 0 8px; }
+  .feature-card p { font-size: 13.5px; color: var(--text-secondary); margin: 0; }
+
+  .steps { max-width: 640px; margin: 0 auto; }
+  .step { display: flex; gap: 16px; margin-bottom: 22px; }
+  .step .num {
+    flex: none; width: 32px; height: 32px; border-radius: 50%;
+    background: var(--purple); color: #fff; font-weight: 700; font-size: 14px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .step p { margin: 4px 0 0; color: var(--text-secondary); font-size: 14.5px; }
+  .step strong { color: var(--text); }
+
+  .banks-strip {
+    text-align: center; color: var(--text-secondary); font-size: 14px; margin-top: 8px;
+  }
+
+  footer {
+    padding: 40px 0 60px; text-align: center; color: var(--text-secondary); font-size: 13px;
+    border-top: 1px solid var(--divider);
+  }
+  footer .links { display: flex; gap: 18px; justify-content: center; margin-bottom: 14px; flex-wrap: wrap; }
+
+  @media (max-width: 860px) {
+    .shots, .features { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 700px) {
+    .nav-links a.hide-mobile { display: none; }
+  }
+  @media (max-width: 560px) {
+    .shots, .features { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 30px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="brand"><img src="icon.png" alt="" />CashGuard</div>
+    <div class="nav-links">
+      <a class="ghost hide-mobile" href="#features">Features</a>
+      <a class="ghost hide-mobile" href="#screenshots">Screenshots</a>
+      <a class="ghost" href="https://github.com/premathunga/CashGuard">GitHub</a>
+      <a class="button" href="https://github.com/premathunga/CashGuard/releases/latest/download/CashGuard-debug.apk">Download</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <img class="icon" src="icon.png" alt="CashGuard icon" />
+    <h1>Your salary's bodyguard.</h1>
+    <p class="tagline">CashGuard reads every bank transaction alert automatically — across all 31 Sri Lankan banks — and helps you stop overspending right after payday. 100% on your device.</p>
+    <div class="cta-row">
+      <a class="cta-primary" href="https://github.com/premathunga/CashGuard/releases/latest/download/CashGuard-debug.apk">⬇ Download APK</a>
+      <a class="cta-secondary" href="https://github.com/premathunga/CashGuard">★ View on GitHub</a>
+    </div>
+    <div class="sideload-note">Free direct download — sideload, no Play Store needed. See <a href="#install">install steps</a> below.</div>
+    <div class="badges">
+      <div class="badge"><span class="dot">●</span> No internet permission</div>
+      <div class="badge"><span class="dot">●</span> No analytics or ads</div>
+      <div class="badge"><span class="dot">●</span> 100% on-device</div>
+      <div class="badge"><span class="dot">●</span> Free &amp; open source (GPL-3.0)</div>
+    </div>
+  </div>
+</section>
+
+<section id="screenshots">
+  <div class="wrap">
+    <h2 class="section-title">See it in action</h2>
+    <p class="section-sub">Dark, minimal, purple-to-blue — built for daily glances</p>
+    <div class="shots">
+      <figure>
+        <img src="screenshots/01_dashboard.png" alt="Dashboard screen" />
+        <figcaption>Dashboard — multi-bank balance, budget ring, Party Guard</figcaption>
+      </figure>
+      <figure>
+        <img src="screenshots/06_transaction_popup.png" alt="Transaction popup" />
+        <figcaption>Truecaller-style transaction popup</figcaption>
+      </figure>
+      <figure>
+        <img src="screenshots/03_budget.png" alt="Budget checklist screen" />
+        <figcaption>Monthly budget checklist</figcaption>
+      </figure>
+      <figure>
+        <img src="screenshots/02_history.png" alt="History screen" />
+        <figcaption>Searchable, filterable transaction history</figcaption>
+      </figure>
+      <figure>
+        <img src="screenshots/04_settings.png" alt="Settings screen" />
+        <figcaption>Settings — English, Sinhala &amp; Tamil</figcaption>
+      </figure>
+      <figure>
+        <img src="screenshots/05_add_budget.png" alt="Add budget item sheet" />
+        <figcaption>Add a recurring bill in seconds</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="features">
+  <div class="wrap">
+    <h2 class="section-title">What it does</h2>
+    <p class="section-sub">No typing, no manual entry — just install and it works</p>
+    <div class="features">
+      <div class="feature-card">
+        <div class="emoji">🏦</div>
+        <h3>Every Sri Lankan bank, automatically</h3>
+        <p>Reads transaction alerts from all 31 licensed commercial, specialised and foreign banks plus Hutch/SLTMobitel — no SMS permission, no manual setup.</p>
+      </div>
+      <div class="feature-card">
+        <div class="emoji">📋</div>
+        <h3>Monthly budget checklist</h3>
+        <p>List your recurring bills — rent, electricity, loans. They tick themselves off automatically when a matching transaction is detected.</p>
+      </div>
+      <div class="feature-card">
+        <div class="emoji">🎉</div>
+        <h3>Party Guard</h3>
+        <p>Arm a spending cap before a night out. Warnings at 50%/80%, a loud alarm on every transaction past the cap, and a morning-after summary.</p>
+      </div>
+      <div class="feature-card">
+        <div class="emoji">💜</div>
+        <h3>Truecaller-style popup</h3>
+        <p>A branded card appears over whatever app you're using the instant a transaction happens — not just another notification lost in the shade.</p>
+      </div>
+      <div class="feature-card">
+        <div class="emoji">📅</div>
+        <h3>Payday-aware budget cycles</h3>
+        <p>Optionally set your payday date(s) so your budget resets when your income actually arrives, not on the calendar's 1st.</p>
+      </div>
+      <div class="feature-card">
+        <div class="emoji">🌐</div>
+        <h3>English, සිංහල, தமிழ்</h3>
+        <p>Pick your language on first launch and switch anytime in Settings — the whole app, fully translated.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="install">
+  <div class="wrap">
+    <h2 class="section-title">Install it</h2>
+    <p class="section-sub">Two minutes, no Play Store account needed</p>
+    <div class="steps">
+      <div class="step">
+        <div class="num">1</div>
+        <div><p><strong>Download</strong> the APK using the button above (or from the <a href="https://github.com/premathunga/CashGuard/releases/latest">Releases page</a>).</p></div>
+      </div>
+      <div class="step">
+        <div class="num">2</div>
+        <div><p><strong>Open the file</strong> — Android will ask to allow installs from your browser/file manager. Allow it, then tap Install.</p></div>
+      </div>
+      <div class="step">
+        <div class="num">3</div>
+        <div><p><strong>Grant Notification Access</strong> when the app asks (or later via Settings → Notification Access). This is what lets CashGuard read bank alerts — no SMS permission is ever requested.</p></div>
+      </div>
+      <div class="step">
+        <div class="num">4</div>
+        <div><p>That's it — spend as normal, and every bank alert shows up automatically.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="links">
+      <a href="https://github.com/premathunga/CashGuard">GitHub</a>
+      <a href="https://github.com/premathunga/CashGuard/releases">Releases</a>
+      <a href="https://github.com/premathunga/CashGuard/blob/main/LICENSE">License (GPL-3.0)</a>
+      <a href="https://github.com/premathunga/CashGuard/blob/main/README.md">Documentation</a>
+    </div>
+    <div>Free and open source. Your data never leaves your device.</div>
+  </div>
+</footer>
+
+</body>
+</html>
