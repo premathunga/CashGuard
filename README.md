@@ -1,7 +1,20 @@
-# CashGuard
+<p align="center">
+  <img src="docs/icon.png" width="120" alt="CashGuard icon" />
+</p>
 
-Personal finance tracker for Sri Lankan bank/telco alerts.
-Kotlin + Jetpack Compose + Room + DataStore.
+<h1 align="center">CashGuard</h1>
+
+<p align="center">Personal finance tracker for Sri Lankan bank/telco alerts.<br/>Kotlin + Jetpack Compose + Room + DataStore.</p>
+
+## Screenshots
+
+| Dashboard | History | Budget |
+|:---:|:---:|:---:|
+| ![Dashboard](docs/screenshots/01_dashboard.png) | ![History](docs/screenshots/02_history.png) | ![Budget checklist](docs/screenshots/03_budget.png) |
+
+| Settings | Add Budget Item | Transaction Popup |
+|:---:|:---:|:---:|
+| ![Settings](docs/screenshots/04_settings.png) | ![Add budget item](docs/screenshots/05_add_budget.png) | ![Transaction popup + Party Guard warning](docs/screenshots/06_transaction_popup.png) |
 
 ## Features
 - **Automatic transaction capture** — a `NotificationListenerService` reads bank
