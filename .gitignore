@@ -1,0 +1,29 @@
+# Gradle
+.gradle/
+build/
+*/build/
+!src/**/build/
+
+# Local configuration (contains machine-specific SDK path)
+local.properties
+
+# Android Studio / IntelliJ
+.idea/
+*.iml
+.externalNativeBuild/
+.cxx/
+captures/
+
+# macOS
+.DS_Store
+
+# Signing (never commit keystores or signing secrets)
+*.jks
+*.keystore
+key.properties
+
+# Claude Code local session/tooling config
+.claude/
+
+# Logs
+*.log
