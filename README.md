@@ -69,7 +69,15 @@
 See [ROADMAP.md](ROADMAP.md) for ideas not yet implemented (app PIN,
 quick-settings tile, trusted-friend SMS, card-freeze deep links).
 
-## Setup
+## Download
+
+Grab the latest signed release APK from the
+**[website](https://premathunga.github.io/CashGuard/)** or directly from
+[**Releases**](https://github.com/premathunga/CashGuard/releases/latest) —
+sideload it (enable "install unknown apps" for your browser/file manager),
+then grant Notification Access when prompted.
+
+## Setup (build from source)
 
 1. Open this folder in **Android Studio** (Koala or newer recommended).
 2. Let Gradle sync (`./gradlew assembleDebug` also works from the command line).
@@ -77,6 +85,23 @@ quick-settings tile, trusted-friend SMS, card-freeze deep links).
 4. On first launch, go to **Settings → Notification Access** and grant
    CashGuard access under *Settings → Apps → Special app access →
    Notification access* — this is what lets it read bank alerts.
+
+### Signed release builds
+
+`app/build.gradle.kts` reads signing credentials from a `key.properties`
+file at the repo root (gitignored — never committed):
+
+```properties
+storePassword=...
+keyPassword=...
+keyAlias=...
+storeFile=/absolute/path/to/your.jks
+```
+
+Without this file, `./gradlew assembleRelease` still builds an **unsigned**
+release APK (fine for local testing); `assembleDebug` is unaffected either
+way and needs no setup. The maintainer's release key is intentionally kept
+outside this repository and outside version control entirely.
 
 ## Project structure
 
